@@ -11,6 +11,24 @@ Discord bot who answers "Feur" to a message ending with "What?"
 - Theophane "Mithril" B. - Original idea
 
 
+## Requirements
+
+To work properly, Feuroléon needs the following libs:
+
+DiscordPy :
+```bash
+  pip install discordpy
+```
+
+Pillow :
+```bash
+  pip install Pillow
+```
+
+requires.io :
+```bash
+  pip install requires.io
+```
 
 
 ## Details
