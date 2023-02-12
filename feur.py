@@ -1,8 +1,8 @@
 #--- Importation discord.py
 import discord
+from discord import File
 from discord.ext import commands
-from PIL import Image
-from io import BytesIO
+from easy_pil import Editor, load_image_async
 
 #--- Création du bot
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), description="Quoi ? Feur.")
@@ -41,14 +41,16 @@ async def on_message(message):
     search_quoi(message)
     if repondre == True:
 
-        background = Image.open("image.png")
-        data = BytesIO(await message.author.display_avatar.read())
-        pfp = Image.open(data)
-        pfp = pfp.resize((340,340))
-        background.paste(pfp, (650, 720))
-        background.save("profile.jpg")
+        background = Editor("image.png")
+        profile_image = await load_image_async(str(message.author.avatar.url))
 
-        await message.reply("**Feur !**", mention_author=True, file=discord.File('profile.jpg'))
+        profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(35, expand=True)
+
+        background.paste(profile, (600, 650))
+
+        file = File(fp=background.image_bytes, filename="feurmage.jpg")
+ 
+        await message.reply("**Feur !**", mention_author=True, file=file)
         print("La personne a correctement été feurisée.")
         repondre == False
 
