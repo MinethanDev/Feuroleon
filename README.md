@@ -33,16 +33,6 @@ DiscordPy :
   pip install discordpy
 ```
 
-Pillow :
-```bash
-  pip install Pillow
-```
-
-requires.io :
-```bash
-  pip install requires.io
-```
-
 ## License
 
 [CC BY-NC-ND](https://creativecommons.org/licenses/by-nc-nd/4.0//)
