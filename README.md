@@ -1,6 +1,3 @@
-
-# Feuroléon 
-
 ![Logo](https://i.imgur.com/82lwQ3n.png)
 
 Discord bot who answers "Feur" to a message ending with "What?"
