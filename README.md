@@ -33,6 +33,11 @@ DiscordPy :
   pip install discordpy
 ```
 
+easy-pil :
+```bash
+  pip install easy-pil
+```
+
 ## License
 
 [CC BY-NC-ND](https://creativecommons.org/licenses/by-nc-nd/4.0//)
