@@ -7,7 +7,7 @@ Discord bot who answers "Feur" to a message ending with "What?"
 ## Creators
 
 - [@MinethanDev](https://github.com/MinethanDev) - Main developpement
-- [@lalyfxx](https://github.com/lalyfxx) - Beta Testing
+- [@lalyfxx](https://github.com/lalyfxx) - Beta Testing / Design
 - Theophane "Mithril" B. - Original idea
 
 
