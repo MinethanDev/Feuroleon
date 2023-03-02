@@ -40,18 +40,32 @@ async def on_ready():
 async def on_message(message):
     search_quoi(message)
     if repondre == True:
+        quelquoi = randint(1,4)
 
-        background = Editor("image.png")
-        profile_image = await load_image_async(str(message.author.avatar.url))
+        if quelquoi == 1:
+            background = Editor("image.png")
+            profile_image = await load_image_async(str(message.author.avatar.url))
 
-        profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(35, expand=True)
+            profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(35, expand=True)
 
-        background.paste(profile, (600, 650))
+            background.paste(profile, (600, 650))
 
-        file = File(fp=background.image_bytes, filename="feurmage.jpg")
- 
-        await message.reply("**Feur !**", mention_author=True, file=file)
-        print("La personne a correctement été feurisée.")
+            file = File(fp=background.image_bytes, filename="feurmage.jpg")
+            await message.reply("**Feur !**", mention_author=True, file=file)
+            print("La personne a correctement été feurisée.")
+
+        if quelquoi == 2:
+            await message.reply("**-druplé !**", mention_author=True, file=discord.File("druple.png"))
+            print("La personne a correctement été quadruplisée.")
+
+        if quelquoi == 3:
+            await message.reply("**-rtz !**", mention_author=True, file=discord.File("quartz.png"))
+            print("La personne a correctement été quartzisée.")
+
+        if quelquoi == 4:
+            await message.reply("**-drilatère !**", mention_author=True, file=discord.File("drilatere.png"))
+            print("La personne a correctement été quadrilatèrisée.")
+
         repondre == False
 
 #--- Login au compte du bot
