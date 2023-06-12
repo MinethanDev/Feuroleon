@@ -1,12 +1,12 @@
 #--- Importation discord.py
 import discord
+import random
 from discord import File
 from discord.ext import commands
 from easy_pil import Editor, load_image_async
-from random import randint
 
 #--- Création du bot
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), description="Quoi ? Feur.")
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all(), description="Quoi ? Feur.")
 
 #--- Liste des "Quoi" possibles
 quoilist = [
@@ -18,6 +18,15 @@ quoilist = [
     "QWA", "QWA?", "QWA ?", "QWA!", "QWA !", "QWA.", "QWA .", "QWA-", "QWA -",
     "KUWA", "KUWA?", "KUWA ?", "KUWA!", "KUWA !", "KUWA.", "KUWA .", "KUWA-", "KUWA -",
     ]
+
+#--- Liste des "Ca va" possibles
+cavalist = [
+    "CA VA", "CA VA?", "CA VA ?",
+    "ÇA VA", "ÇA VA?", "ÇA VA ?",
+    "CAVA", "CAVA?", "CAVA ?",
+    "ÇAVA", "ÇAVA?", "ÇAVA ?",
+    "SAVA", "SAVA?", "SAVA ?",
+]
 
 #--- Recherche du "Quoi" utilisé
 def search_quoi(message):
@@ -40,11 +49,12 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     msg = str(message.content)
+    msgup = str(msg.upper())
 
     #--- Fonction QUOI FEUR
     search_quoi(message)
     if repondre == True:
-        quelquoi = randint(1,5)
+        quelquoi = random.randint(1,5)
 
         if quelquoi == 1:
             background = Editor("image.png")
@@ -78,10 +88,11 @@ async def on_message(message):
 
     #--- Fonction Ca va le ...
     if str(message.author.id) != "1022158126818001017":
-        if "CA VA" in msg.upper() or "ÇA VA" in msg.upper() or "CA VA?" in msg.upper() or "ÇA VA?" in msg.upper() or "CA VA ?" in msg.upper() or "ÇA VA ?" in msg.upper():
-            auteur = str(message.author)
-            await message.reply("Ca va et toi le " + auteur[0].upper(), mention_author=True)
-            print("Ca va envoyé")
+        for i in range (len(cavalist)):
+            if cavalist[i] == msg.upper():
+                auteur = str(message.author)
+                await message.reply("Ça va et toi le " + auteur[0].upper() + " ?", mention_author=True)
+                print("Ca va envoyé")
     
     #--- Fonction anti quoicoubeh
     if "QUOICOUBEH" in msg.upper():
@@ -89,5 +100,27 @@ async def on_message(message):
         await message.reply("**Tu es cringe**", mention_author=True, file=discord.File("cringe.gif"))
         print("Réponse au quoicoubeh envoyée")
 
+    #--- Fonction Indochine
+    if "A LA VIE, A Y CROIRE" in msg.upper():
+        print("Indo'ref trouvée")
+        await message.reply("**A NOS CÉLÉBRATIOOOONS**", mention_author=True, file=discord.File("celebrations.gif"))
+        print("A NOS CELEBRATIOOOONS")
+
+    #--- Fonction Voyance
+    if msgup.startswith('DIS MOI FEUROLÉON') or msgup.startswith('DIS MOI FEUROLEON'):
+        print("Question de voyance trouvée")
+        reponses = ['Oui', 'Non', 'Peut-être', 'La réponse D']
+        reponse = random.choice(reponses)
+        await message.reply(reponse, mention_author=True)
+        print("Réponse envoyée")
+
+    #--- Fonction Voyance Bescherelle
+    if msgup.startswith('DIT MOI FEUROLÉON') or msgup.startswith('DIT MOI FEUROLEON'):
+        print("Question de voyance mal orthographiée trouvée")
+        reponses = ['Oui', 'Non', 'Peut-être']
+        reponse = random.choice(reponses)
+        await message.reply(reponse + " mais va apprendre à conjuguer s'il te plaît.", mention_author=True, file=discord.File("bescherelle.jpg"))
+        print("Réponse envoyée")
+        
 #--- Login au compte du bot
-bot.run("")
+bot.run()
