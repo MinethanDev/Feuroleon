@@ -121,6 +121,13 @@ async def on_message(message):
         reponse = random.choice(reponses)
         await message.reply(reponse + " mais va apprendre à conjuguer s'il te plaît.", mention_author=True, file=discord.File("assets/bescherelle.jpg"))
         print("Réponse envoyée")
+       
+
+    #--- Fonction Echelle
+    if msgup.startswith('SUR UNE ÉCHELLE DE 1 A 10') or msgup.startswith('SUR UNE ÉCHELLE DE 1 À 10') or msgup.startswith('SUR UNE ECHELLE DE 1 A 10') or msgup.startswith('SUR UNE ECHELLE DE 1 À 10'):
+        print("Question d'échelle trouvée")
+        await message.reply(random.randint(1, 10), mention_author=True)
+        print("Échelle envoyée")
         
 #--- Login au compte du bot
 bot.run()
