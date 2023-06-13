@@ -14,7 +14,7 @@ Discord bot who answers "Feur" to a message ending with "What?"
 
 Feuroléon is a Discord bot aiming to perform a French joke based on the word "coiffeur". The bot will come, at each new message on the server, scan the end of it and, if it detects a "Quoi ?", it will instantly answer "Feur!" by sending a picture of a hairdresser with the profile picture of the person who wrote the message.
 
-UPADTE 09/06/2023 : Now, Feuroleon also responds with "Quarterback" and have new features with "quoicoubeh" and "ça va".
+UPADTE 13/06/2023 : Now, Feuroleon also responds with Indochine song and he can awnser "yes or no" questions
 ## FAQ
 
 #### Is Feuroléon available for my Discord server?
