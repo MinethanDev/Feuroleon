@@ -57,7 +57,7 @@ async def on_message(message):
         quelquoi = random.randint(1,5)
 
         if quelquoi == 1:
-            background = Editor("image.png")
+            background = Editor("assets/coiffeur.png")
             profile_image = await load_image_async(str(message.author.avatar.url))
 
             profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(35, expand=True)
@@ -69,19 +69,19 @@ async def on_message(message):
             print("La personne a correctement été feurisée.")
 
         if quelquoi == 2:
-            await message.reply("**-druplé !**", mention_author=True, file=discord.File("druple.png"))
+            await message.reply("**-druplé !**", mention_author=True, file=discord.File("assets/druple.png"))
             print("La personne a correctement été quadruplisée.")
 
         if quelquoi == 3:
-            await message.reply("**-rtz !**", mention_author=True, file=discord.File("quartz.png"))
+            await message.reply("**-rtz !**", mention_author=True, file=discord.File("assets/quartz.png"))
             print("La personne a correctement été quartzisée.")
 
         if quelquoi == 4:
-            await message.reply("**-drilatère !**", mention_author=True, file=discord.File("drilatere.png"))
+            await message.reply("**-drilatère !**", mention_author=True, file=discord.File("assets/drilatere.png"))
             print("La personne a correctement été quadrilatèrisée.")
 
         if quelquoi == 5:
-            await message.reply("**-rterback !**", mention_author=True, file=discord.File("rterback.png"))
+            await message.reply("**-rterback !**", mention_author=True, file=discord.File("assets/rterback.png"))
             print("La personne a correctement été quarterbackisée.")
 
         repondre == False
@@ -97,13 +97,13 @@ async def on_message(message):
     #--- Fonction anti quoicoubeh
     if "QUOICOUBEH" in msg.upper():
         print("Quoicoubeh trouvé")
-        await message.reply("**Tu es cringe**", mention_author=True, file=discord.File("cringe.gif"))
+        await message.reply("**Tu es cringe**", mention_author=True, file=discord.File("assets/cringe.gif"))
         print("Réponse au quoicoubeh envoyée")
 
     #--- Fonction Indochine
     if "A LA VIE, A Y CROIRE" in msg.upper():
         print("Indo'ref trouvée")
-        await message.reply("**A NOS CÉLÉBRATIOOOONS**", mention_author=True, file=discord.File("celebrations.gif"))
+        await message.reply("**A NOS CÉLÉBRATIOOOONS**", mention_author=True, file=discord.File("assets/celebrations.gif"))
         print("A NOS CELEBRATIOOOONS")
 
     #--- Fonction Voyance
@@ -114,12 +114,12 @@ async def on_message(message):
         await message.reply(reponse, mention_author=True)
         print("Réponse envoyée")
 
-    #--- Fonction Voyance Bescherelle
+    #--- Fonction Voyance Bescherelle édition
     if msgup.startswith('DIT MOI FEUROLÉON') or msgup.startswith('DIT MOI FEUROLEON'):
         print("Question de voyance mal orthographiée trouvée")
         reponses = ['Oui', 'Non', 'Peut-être']
         reponse = random.choice(reponses)
-        await message.reply(reponse + " mais va apprendre à conjuguer s'il te plaît.", mention_author=True, file=discord.File("bescherelle.jpg"))
+        await message.reply(reponse + " mais va apprendre à conjuguer s'il te plaît.", mention_author=True, file=discord.File("assets/bescherelle.jpg"))
         print("Réponse envoyée")
         
 #--- Login au compte du bot
