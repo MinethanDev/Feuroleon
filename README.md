@@ -25,20 +25,6 @@ No. The Feuroléon invitation link is not yet available
 
 No, and its translation is not planned at the moment.
 
-## Requirements
-
-To work properly, Feuroléon needs the following libs:
-
-DiscordPy :
-```bash
-  pip install discordpy
-```
-
-easy-pil :
-```bash
-  pip install easy-pil
-```
-
 ## License
 
 [CC BY-NC-ND](https://creativecommons.org/licenses/by-nc-nd/4.0//)
