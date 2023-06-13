@@ -109,7 +109,7 @@ async def on_message(message):
     #--- Fonction Voyance
     if msgup.startswith('DIS MOI FEUROLÉON') or msgup.startswith('DIS MOI FEUROLEON'):
         print("Question de voyance trouvée")
-        reponses = ['Oui', 'Non', 'Peut-être', 'La réponse D']
+        reponses = ['Oui', 'Non', 'Peut-être', 'La réponse D', 'Probablement', 'Probablement pas', 'Surement', 'Impossible', "J'm'en branle"]
         reponse = random.choice(reponses)
         await message.reply(reponse, mention_author=True)
         print("Réponse envoyée")
@@ -117,7 +117,7 @@ async def on_message(message):
     #--- Fonction Voyance Bescherelle édition
     if msgup.startswith('DIT MOI FEUROLÉON') or msgup.startswith('DIT MOI FEUROLEON'):
         print("Question de voyance mal orthographiée trouvée")
-        reponses = ['Oui', 'Non', 'Peut-être']
+        reponses = ['Oui', 'Non', 'Peut-être', 'Probablement', 'Probablement pas', 'Surement', 'Impossible', "J'm'en branle"]
         reponse = random.choice(reponses)
         await message.reply(reponse + " mais va apprendre à conjuguer s'il te plaît.", mention_author=True, file=discord.File("assets/bescherelle.jpg"))
         print("Réponse envoyée")
