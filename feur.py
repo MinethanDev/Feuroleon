@@ -157,4 +157,4 @@ async def on_message(message):
         print("Réponse au mariage envoyée")
 
 #--- Login au compte du bot
-bot.run("MTAyMjE1ODEyNjgxODAwMTAxNw.Ggui4X.ZTYDdWnfpIVwvx_6E_uqAPkBk2Yh-3jsQRxx-8")
+bot.run("")
