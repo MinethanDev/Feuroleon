@@ -128,6 +128,33 @@ async def on_message(message):
         print("Question d'échelle trouvée")
         await message.reply(random.randint(1, 10), mention_author=True)
         print("Échelle envoyée")
-        
+
+    #--- Fonction UwU
+    if "UWU" in msg.upper():
+        print("UwU trouvé")
+        await message.reply("", mention_author=True, file=discord.File("assets/uwu.mp4"))
+        print("Réponse au UwU envoyée")
+    
+    #--- Fonction Mariage
+    if msgup.startswith('FEUROLÉON MARIE MOI') or msgup.startswith('FEUROLEON MARIE MOI'):
+        print("Demande en mariage détectée")
+        mariageoupas = random.randint(1,2)
+
+        if mariageoupas == 1:
+            await message.reply("", mention_author=True, file=discord.File("assets/bsrnon.jpg"))
+
+        if mariageoupas == 2:
+            background = Editor("assets/mariage.png")
+            profile_image = await load_image_async(str(message.author.avatar.url))
+
+            profile = Editor(profile_image).resize((340, 340)).circle_image()
+
+            background.paste(profile, (650, 320))
+
+            file = File(fp=background.image_bytes, filename="mariagefinal.jpg")
+            await message.reply("**Oui je le veux**", mention_author=True, file=file)
+
+        print("Réponse au mariage envoyée")
+
 #--- Login au compte du bot
-bot.run()
+bot.run("MTAyMjE1ODEyNjgxODAwMTAxNw.Ggui4X.ZTYDdWnfpIVwvx_6E_uqAPkBk2Yh-3jsQRxx-8")
