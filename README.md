@@ -14,14 +14,14 @@ Discord bot who answers "Feur" to a message ending with "What?"
 
 Feuroléon is a Discord bot created in 2022 from a joke. Feuroléon's original function is to reply "Feur" to anyone ending their message with "Quoi". Since then, Feuroléon has expanded to include different types of French jokes and other features.
 
+Feuroléon has just received its V2 update. This update adds nothing new, apart from the /orthographe command. The main purpose of this update is to optimize the bot, which until now had not been optimized at all.
+
 List of features :
 -  "UwU" : Sends Hannah Owo saying UwU
 -  "Quoicoubeh" : Sends a cringe gif
--  "A LA VIE, A Y CROIRE" : Sends a gif of the music video "Nos Célébrations" by French band Indochine
--  "Feuroléon marie moi" : Sends a positive or negative response to the user's marriage request
--  "Dis moi Feuroléon" : Sends an answer to a closed question
--  "Sur une échelle de 1 à 10" : Sends a scale from 1 to 10 in relation to the user's request
-
+-  "/mariage" : Sends a positive or negative response to the user's marriage request
+-  "/question" : Sends an answer to a closed question
+  
 ## FAQ
 
 #### Is Feuroléon available for my Discord server?
