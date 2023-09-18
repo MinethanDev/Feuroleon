@@ -14,9 +14,8 @@ tree = app_commands.CommandTree(client)
 # Init
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name="Prépare la V2"))
     await bot.tree.sync()
-    #await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='son coiffeur.'))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='son coiffeur.'))
     print("Feuroléon a correctement démarré et est connecté à Discord.")
 
 # Liste des "QUOI" possibles
@@ -69,7 +68,7 @@ async def on_message(message):
     if "quoicoubeh" in str_msg:
         print("'Quoicoubeh' trouvé dans le message '{0}' de {1}".format(str_msg, message.author))
         await message.reply("**Tu es cringe**", mention_author=True, file=discord.File("assets/cringe.gif"))
-        print("UwU envoyé à {0}".format(message.author))
+        print("'Quoicoubeh' envoyé à {0}".format(message.author))
 
 # Commande /question
 @bot.tree.command(name="question", description="Posez une question fermée et Feuroléon y répondra !")
