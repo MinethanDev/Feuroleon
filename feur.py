@@ -78,13 +78,13 @@ async def questioncmd(interaction: discord.Interaction, votre_question: str):
 
 # Commande /orthographe
 @bot.tree.command(name="orthographe", description="Épinglez quelqu'un pour son orthographe désastreuse")
-async def questioncmd(interaction: discord.Interaction, coupable: discord.Member):
+async def orthographe(interaction: discord.Interaction, coupable: discord.Member):
     await interaction.response.send_message("{0} je t'informe que {1} a signalé ton orthographe désastreuse...".format("<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/bescherelle.jpg"))
     print("Commande orthographique utilisée par {0} sur {1}".format(interaction.user.name, coupable))
 
 # Commande /cringe
 @bot.tree.command(name="cringe", description="Dénoncez une personne beaucoup trop cringe")
-async def questioncmd(interaction: discord.Interaction, coupable: discord.Member):
+async def cringe(interaction: discord.Interaction, coupable: discord.Member):
     await interaction.response.send_message("**{0} VOUS ÊTES EN ÉTAT D'ARRESTATION POUR EXCÈS DE CRINGE !**\nMerci {1} de dénoncer ces dangereux criminels.".format("<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/police.jpg"))
     print("Commande anti-cringe utilisée par {0} sur {1}".format(interaction.user.name, coupable))
 
