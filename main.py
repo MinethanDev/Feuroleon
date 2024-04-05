@@ -1,15 +1,15 @@
 # Importations bibliothèques
 import discord
+import config
+from emojis import decode
 from random import randint, choice
 from string import punctuation
-from discord import app_commands, File
+from discord import File
 from discord.ext import commands
 from easy_pil import Editor, load_image_async
 
 # Déclaration du bot & du client
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
-client = discord.Client(intents=discord.Intents.all())
-tree = app_commands.CommandTree(client)
 
 # Init
 @bot.event
@@ -25,7 +25,15 @@ quoilist = ["quoi", "koi", "tfk", "pk", "kwa", "qwa", "kuwa", "quwa"]
 @bot.event
 async def on_message(message):
 
-    str_msg = message.content.strip(punctuation + ' ').lower()
+    str_msg = decode(message.content.strip(punctuation + ' ').lower())
+
+    mots = str_msg.split()
+    
+    for mot in mots:
+        if mot[0] == ":" and mot[-1] == ":":
+            mots.remove(mot)
+
+    str_msg = ''.join(mots)
 
     for quoi in quoilist:
         if str_msg.endswith(quoi):
@@ -34,12 +42,9 @@ async def on_message(message):
 
             if quelquoi == 1:
                 background = Editor("assets/coiffeur.png")
-                profile_image = await load_image_async(str(message.author.avatar.url))
-
-                profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(35, expand=True)
-
-                background.paste(profile, (600, 650))
-
+                profile_image = await load_image_async(message.author.avatar.url)
+                profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(15, expand=True)
+                background.paste(profile, (650, 685))
                 file = File(fp=background.image_bytes, filename="feurmage.jpg")
                 await message.reply("**Feur !**", mention_author=True, file=file)
                 print("Réponse envoyée à {0} avec Feur".format(message.author))
@@ -59,7 +64,7 @@ async def on_message(message):
             if quelquoi == 5:
                 await message.reply("**-rterback !**", mention_author=True, file=discord.File("assets/rterback.png"))
                 print("Réponse envoyée à {0} avec Quarterback".format(message.author))
-    
+
     if "uwu" in str_msg:
         print("UwU trouvé dans le message '{0}' de {1}".format(str_msg, message.author))
         await message.reply("", mention_author=True, file=discord.File("assets/uwu.mp4"))
@@ -71,7 +76,7 @@ async def on_message(message):
         print("'Quoicoubeh' envoyé à {0}".format(message.author))
 
 # Commande /question
-@bot.tree.command(name="question", description="Posez une question fermée et Feuroléon y répondra !")
+@bot.tree.command(name="question", description="Posez une question fermée et Feuroléon y répondra")
 async def questioncmd(interaction: discord.Interaction, votre_question: str):
     await interaction.response.send_message("{0} me demande : **{1}**\nJe lui répond : **{2}** !".format("<@" + str(interaction.user.id) + ">", votre_question, choice(["Oui", "Non", "Peut-être", "Probablement", "Probablement pas", "Impossible", "Surement"])))
     print("Commande question utilisée par {0}".format(interaction.user.name))
@@ -89,4 +94,4 @@ async def cringe(interaction: discord.Interaction, coupable: discord.Member):
     print("Commande anti-cringe utilisée par {0} sur {1}".format(interaction.user.name, coupable))
 
 # Exécution du bot
-bot.run("")
+bot.run(config.BOT_TOKEN)
