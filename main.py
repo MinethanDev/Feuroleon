@@ -93,5 +93,30 @@ async def cringe(interaction: discord.Interaction, coupable: discord.Member):
     await interaction.response.send_message("**{0} VOUS ÊTES EN ÉTAT D'ARRESTATION POUR EXCÈS DE CRINGE !**\nMerci {1} de dénoncer ces dangereux criminels.".format("<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/police.jpg"))
     print("Commande anti-cringe utilisée par {0} sur {1}".format(interaction.user.name, coupable))
 
+# Commande /feur
+@bot.tree.command(name="feur", description="Feuriser quelqu'un !")
+async def feur(interaction: discord.Interaction, victime: discord.Member):
+    background = Editor("assets/coiffeur.png")
+    profile_image = await load_image_async(victime.avatar.url)
+    profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(15, expand=True)
+    background.paste(profile, (650, 685))
+    file = File(fp=background.image_bytes, filename="feurmage.jpg")
+    await interaction.response.defer()
+    await interaction.followup.send(content=f"**Feur ! {victime.mention}**", file=file)
+
+# Commande /mariage
+@bot.tree.command(name="mariage", description="Mariez deux personnes entre elles !")
+async def mariage(interaction: discord.Interaction, romeo: discord.Member, juliette: discord.Member):
+    background = Editor("assets/mariage.png")
+    profile_image = await load_image_async(romeo.avatar.url)
+    profile = Editor(profile_image).resize((200, 200)).circle_image()
+    background.paste(profile, (603, 108))
+    profile_image = await load_image_async(juliette.avatar.url)
+    profile = Editor(profile_image).resize((200, 200)).circle_image()
+    background.paste(profile, (360, 160))
+    file = File(fp=background.image_bytes, filename="felicitations.jpg")
+    await interaction.response.defer()
+    await interaction.followup.send(content=f"**Vive les mariés :partying_face:\n{romeo.mention} :heart: {juliette.mention}**", file=file)
+
 # Exécution du bot
 bot.run(config.BOT_TOKEN)
