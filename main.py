@@ -1,6 +1,7 @@
 # Importations bibliothèques
 import discord
 import config
+from asyncio import sleep
 from emojis import decode
 from random import randint, choice
 from string import punctuation
@@ -96,17 +97,18 @@ async def cringe(interaction: discord.Interaction, coupable: discord.Member):
 # Commande /feur
 @bot.tree.command(name="feur", description="Feuriser quelqu'un !")
 async def feur(interaction: discord.Interaction, victime: discord.Member):
+    await interaction.response.defer()
     background = Editor("assets/coiffeur.png")
     profile_image = await load_image_async(victime.avatar.url)
     profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(15, expand=True)
     background.paste(profile, (650, 685))
     file = File(fp=background.image_bytes, filename="feurmage.jpg")
-    await interaction.response.defer()
     await interaction.followup.send(content=f"**Feur ! {victime.mention}**", file=file)
 
 # Commande /mariage
 @bot.tree.command(name="mariage", description="Mariez deux personnes entre elles !")
 async def mariage(interaction: discord.Interaction, romeo: discord.Member, juliette: discord.Member):
+    await interaction.response.defer()
     background = Editor("assets/mariage.png")
     profile_image = await load_image_async(romeo.avatar.url)
     profile = Editor(profile_image).resize((200, 200)).circle_image()
@@ -115,7 +117,6 @@ async def mariage(interaction: discord.Interaction, romeo: discord.Member, julie
     profile = Editor(profile_image).resize((200, 200)).circle_image()
     background.paste(profile, (360, 160))
     file = File(fp=background.image_bytes, filename="felicitations.jpg")
-    await interaction.response.defer()
     await interaction.followup.send(content=f"**Vive les mariés :partying_face:\n{romeo.mention} :heart: {juliette.mention}**", file=file)
 
 # Exécution du bot
