@@ -4,7 +4,7 @@
 
 - [@MinethanDev](https://github.com/MinethanDev) - Développement
 - [@lalyfxx](https://github.com/lalyfxx) - Direction Artistique / Beta-Testeuse
-- Théophane "Mithril" B. - Idée Originale
+- [@DevMithril](https://github.com/DevMithril) - Idée Originale
 
 ## A propos
 
