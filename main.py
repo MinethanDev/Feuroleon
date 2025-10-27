@@ -1,7 +1,15 @@
-# Importations bibliothèques
+#################################################################
+# Projet : Feuroléon                      Création : 21.09.2022 #
+# Auteur : Minethan                           Fichier : main.py #
+# Description : Bot Discord humoristique répondant "Feur" à un  #
+#               message finissant par "Quoi", ainsi que         #
+#               d'autres fonctionnalités                        #
+# Version : 2.5                                                 #
+#################################################################
+
+#--------------------[ Importation des bibliothèques
 import discord
 import config
-from asyncio import sleep
 from emojis import decode
 from random import randint, choice
 from string import punctuation
@@ -9,92 +17,88 @@ from discord import File
 from discord.ext import commands
 from easy_pil import Editor, load_image_async
 
-# Déclaration du bot & du client
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+#--------------------[ Initialisation et démarrage du bot
+intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True
 
-# Init
+bot = commands.Bot(command_prefix="!", intents=intents)                                                                       
+
 @bot.event
 async def on_ready():
     await bot.tree.sync()
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='son coiffeur.'))
-    print("Feuroléon a correctement démarré et est connecté à Discord.")
+    print(f'{bot.user} a correctement démarré et est connecté à Discord.')
 
-# Liste des "QUOI" possibles
-quoilist = ["quoi", "koi", "tfk", "pk", "kwa", "qwa", "kuwa", "quwa"]
-
-# Fonction Feur
+#--------------------[ Fonction exécutée à chaque message
 @bot.event
 async def on_message(message):
 
-    str_msg = decode(message.content.strip(punctuation + ' ').lower())
+    if message.author.bot:
+        return
 
-    mots = str_msg.split()
-    
-    for mot in mots:
-        if mot[0] == ":" and mot[-1] == ":":
-            mots.remove(mot)
-
+    mots = decode(message.content.strip(punctuation + ' ').lower()).split()
+    mots = [m for m in mots if not (m.startswith(":") and m.endswith(":"))]
     str_msg = ''.join(mots)
 
-    for quoi in quoilist:
-        if str_msg.endswith(quoi):
-            print("'Quoi' trouvé dans le message '{0}' de {1}".format(str_msg, message.author))
-            quelquoi = randint(1, 5)
+    if len(str_msg) >= 2 and any(str_msg.endswith(q) for q in config.liste_quoi):
+        print(f"'Quoi' trouvé dans le message '{str_msg}' de {message.author}")
 
-            if quelquoi == 1:
-                background = Editor("assets/coiffeur.png")
-                profile_image = await load_image_async(message.author.avatar.url)
-                profile = Editor(profile_image).resize((340, 340)).circle_image().rotate(15, expand=True)
-                background.paste(profile, (650, 685))
-                file = File(fp=background.image_bytes, filename="feurmage.jpg")
-                await message.reply("**Feur !**", mention_author=True, file=file)
-                print("Réponse envoyée à {0} avec Feur".format(message.author))
+        choix = randint(1, 5)
+        texte, image, avatar = config.reps_feur[choix]
 
-            if quelquoi == 2:
-                await message.reply("**-druplé !**", mention_author=True, file=discord.File("assets/druple.png"))
-                print("Réponse envoyée à {0} avec Quadruplé".format(message.author))
+        if avatar:
+            background = Editor(image)
+            profile_image = await load_image_async(message.author.avatar.url)
+            profile = (
+                Editor(profile_image)
+                .resize((340, 340))
+                .circle_image()
+                .rotate(15, expand=True)
+            )
+            background.paste(profile, (650, 685))
+            file = File(fp=background.image_bytes, filename="feurmage.jpg")
+        else:
+            file = discord.File(image)
 
-            if quelquoi == 3:
-                await message.reply("**-rtz !**", mention_author=True, file=discord.File("assets/quartz.png"))
-                print("Réponse envoyée à {0} avec Quartz".format(message.author))
-
-            if quelquoi == 4:
-                await message.reply("**-drilatère !**", mention_author=True, file=discord.File("assets/drilatere.png"))
-                print("Réponse envoyée à {0} avec Quadrilatère".format(message.author))
-
-            if quelquoi == 5:
-                await message.reply("**-rterback !**", mention_author=True, file=discord.File("assets/rterback.png"))
-                print("Réponse envoyée à {0} avec Quarterback".format(message.author))
+        await message.reply(texte, mention_author=True, file=file)
+        print(f"Réponse envoyée à {message.author} avec {texte.strip('*')}")
 
     if "uwu" in str_msg:
-        print("UwU trouvé dans le message '{0}' de {1}".format(str_msg, message.author))
         await message.reply("", mention_author=True, file=discord.File("assets/uwu.mp4"))
         print("UwU envoyé à {0}".format(message.author))
 
     if "quoicoubeh" in str_msg:
-        print("'Quoicoubeh' trouvé dans le message '{0}' de {1}".format(str_msg, message.author))
         await message.reply("**Tu es cringe**", mention_author=True, file=discord.File("assets/cringe.gif"))
         print("'Quoicoubeh' envoyé à {0}".format(message.author))
 
-# Commande /question
-@bot.tree.command(name="question", description="Posez une question fermée et Feuroléon y répondra")
-async def questioncmd(interaction: discord.Interaction, votre_question: str):
-    await interaction.response.send_message("{0} me demande : **{1}**\nJe lui répond : **{2}** !".format("<@" + str(interaction.user.id) + ">", votre_question, choice(["Oui", "Non", "Peut-être", "Probablement", "Probablement pas", "Impossible", "Surement"])))
-    print("Commande question utilisée par {0}".format(interaction.user.name))
+    await bot.process_commands(message)
 
-# Commande /orthographe
+#--------------------[ Commande /question
+@bot.tree.command(name="question", description="Posez une question fermée et Feuroléon y répondra")
+async def question(interaction: discord.Interaction, votre_question: str):
+    print("Commande question utilisée par {0}".format(interaction.user.name))
+    await interaction.response.send_message(
+        "{0} me demande : **{1}**\nJe lui répond : **{2}** !".format(
+            "<@" + str(interaction.user.id) + ">", votre_question, choice(config.reps_question)))
+
+#--------------------[ Commande /orthographe
 @bot.tree.command(name="orthographe", description="Épinglez quelqu'un pour son orthographe désastreuse")
 async def orthographe(interaction: discord.Interaction, coupable: discord.Member):
-    await interaction.response.send_message("{0} je t'informe que {1} a signalé ton orthographe désastreuse...".format("<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/bescherelle.jpg"))
     print("Commande orthographique utilisée par {0} sur {1}".format(interaction.user.name, coupable))
+    await interaction.response.send_message(
+        "{0} je t'informe que {1} a signalé ton orthographe désastreuse...".format(
+            "<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/bescherelle.jpg"))
 
-# Commande /cringe
+#--------------------[ Commande /cringe
 @bot.tree.command(name="cringe", description="Dénoncez une personne beaucoup trop cringe")
 async def cringe(interaction: discord.Interaction, coupable: discord.Member):
-    await interaction.response.send_message("**{0} VOUS ÊTES EN ÉTAT D'ARRESTATION POUR EXCÈS DE CRINGE !**\nMerci {1} de dénoncer ces dangereux criminels.".format("<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/police.jpg"))
     print("Commande anti-cringe utilisée par {0} sur {1}".format(interaction.user.name, coupable))
+    await interaction.response.send_message(
+        "**{0} VOUS ÊTES EN ÉTAT D'ARRESTATION POUR EXCÈS DE CRINGE !**\nMerci {1} de dénoncer ces dangereux criminels.".format(
+            "<@" + str(coupable.id) + ">", "<@" + str(interaction.user.id) + ">"), file=discord.File("assets/police.jpg"))
 
-# Commande /feur
+#--------------------[ Commande /feur
 @bot.tree.command(name="feur", description="Feuriser quelqu'un !")
 async def feur(interaction: discord.Interaction, victime: discord.Member):
     await interaction.response.defer()
@@ -105,7 +109,7 @@ async def feur(interaction: discord.Interaction, victime: discord.Member):
     file = File(fp=background.image_bytes, filename="feurmage.jpg")
     await interaction.followup.send(content=f"**Feur ! {victime.mention}**", file=file)
 
-# Commande /mariage
+#--------------------[ Commande /mariage
 @bot.tree.command(name="mariage", description="Mariez deux personnes entre elles !")
 async def mariage(interaction: discord.Interaction, romeo: discord.Member, juliette: discord.Member):
     await interaction.response.defer()
@@ -119,5 +123,29 @@ async def mariage(interaction: discord.Interaction, romeo: discord.Member, julie
     file = File(fp=background.image_bytes, filename="felicitations.jpg")
     await interaction.followup.send(content=f"**Vive les mariés :partying_face:\n{romeo.mention} :heart: {juliette.mention}**", file=file)
 
-# Exécution du bot
+#--------------------[ Commande /talk
+@bot.tree.command(name="talk", description="Parler via Feuroléon (réservé au développeur)")
+async def talk(interaction: discord.Interaction):
+
+    if interaction.user.id != config.id_dev:
+        await interaction.response.send_message("J'te parle pas à toi")
+        return
+    
+    await interaction.response.send_message("Check tes mp.", ephemeral=True)
+    
+    try:
+        dm = await interaction.user.create_dm()
+        await dm.send("Quel message dois-je envoyer ?")
+
+        def check(msg):
+            return msg.author == interaction.user and isinstance(msg.channel, discord.DMChannel)
+
+        response = await bot.wait_for('message', check=check)
+
+        await interaction.channel.send(f"{response.content}")
+
+    except discord.errors.Forbidden:
+        await interaction.response.send_message("Je n'ai pas pu envoyer de message privé.", ephemeral=True)
+        
+#--------------------[ Exécution du bot
 bot.run(config.BOT_TOKEN)
