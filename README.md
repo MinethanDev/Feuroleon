@@ -21,7 +21,5 @@ Lorsqu'un utilisateur envoie un message sur un serveur Discord où Feuroléon es
 - `/question <question>` : Envoie une réponse à la question posée (questions fermées uniquement)
 - `/feur <victime>` : Envoie le même résultat qu'un message finissant par "Quoi" avec la photo de profil de `<victime>`
 - `/orthographe <coupable>` : Envoie un message humoristique pour signaler que `<coupable>` a une orthographe désastreuse
-- `/crigne <coupable>` : Envoie un message humoristique pour signaler que `<coupable>` est cringe
-
-## Licence
-Feuroléon © 2022 by Minethan is licensed under CC BY-NC 4.0
+- `/cringe <coupable>` : Envoie un message humoristique pour signaler que `<coupable>` est cringe
+- `/talk` : Permet à la personne avec l'`id_dev` de parler via Feuroléon
