@@ -18,7 +18,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.event
 async def on_ready():
     await bot.tree.sync()
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='son coiffeur.'))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Écoute son coiffeur.'))
     print(f'{bot.user} a correctement démarré et est connecté à Discord.')
 
 #--------------------[ Fonction exécutée à chaque message
