@@ -1,15 +1,8 @@
-#################################################################
-# Projet : Feuroléon                      Création : 21.09.2022 #
-# Auteur : Minethan                         Fichier : config.py #
-# Description : Bot Discord humoristique répondant "Feur" à un  #
-#               message finissant par "Quoi", ainsi que         #
-#               d'autres fonctionnalités                        #
-# Version : 2.5                                                 #
-#################################################################
-
+#--------------------[ Importation des bibliothèques
 import os
 from dotenv import load_dotenv
 
+#--------------------[ Chargement des variables d'environnement
 load_dotenv()
 
 #--------------------[ Token du bot
