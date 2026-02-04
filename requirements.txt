@@ -1,3 +1,4 @@
 discord.py==2.6.4
 easy_pil==0.4.0
 emojis==0.7.0
+python-dotenv==1.0.1

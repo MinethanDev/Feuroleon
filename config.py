@@ -7,11 +7,20 @@
 # Version : 2.5                                                 #
 #################################################################
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 #--------------------[ Token du bot
-BOT_TOKEN = ""
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+if not BOT_TOKEN:
+    raise ValueError("BOT_TOKEN manquant dans le .env")
 
 #--------------------[ ID du compte dev
-id_dev = 0
+id_dev = int(os.getenv("DEV_ID", "0"))
+if id_dev == 0:
+    raise ValueError("DEV_ID manquant dans le .env")
 
 #--------------------[ Liste des "Quoi" possibles
 liste_quoi = ["quoi", "koi", "tfk", "pk", "kwa", "qwa", "kuwa", "quwa"]
